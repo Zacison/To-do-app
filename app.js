@@ -69,7 +69,7 @@ var UIModule = (function(){
 
 				if (item.id === 0) {
 					
-					html = '<section class="to-do-list"><section class="list-items"><div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox"></span><span class="item-description"><h2>%description%</h2></span><span class="delete-button"><input type="button" value= "delete" class="actual-delete-button"></span></div></section></section>';
+					html = '<section class="to-do-list"><section class="list-items"><div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox" id ="cb"><span class="checkmarkCSS"></span></span><span class="item-description"><h2 class="strikethrough">%description%</h2></span><span class="delete-button"><input type="button" value= "Delete" class="actual-delete-button"></span></div></section></section>';
 					newHtml = html.replace('%description%', item.description);
 
 					document.querySelector('.to-do-list-container').insertAdjacentHTML('beforeend', newHtml);
@@ -77,7 +77,7 @@ var UIModule = (function(){
 			
 				else {
 
-					html = '<div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox"></span><span class="item-description"><h2>%description%</h2></span><span class="delete-button"><input type="button" value= "delete" class="actual-delete-button"></span></div>';
+					html = '<div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox" id ="cb"><span class="checkmarkCSS"></span></span><span class="item-description"><h2 class="strikethrough">%description%</h2></span><span class="delete-button"><input type="button" value= "Delete" class="actual-delete-button"></span></div>';
 					newHtml = html.replace('%description%', item.description);
 					newHtml = newHtml.replace('item-0', 'item-' + item.id);
 
@@ -123,6 +123,11 @@ var appControllerModule = (function(dataModule, UIModule){
 
 		//#4: Clear the fields
 		UIModule.clearFields();
+
+
+		document.getElementById('cb').addEventListener('click', function(){
+			document.getElementById('cb').setAttribute("class", "strikethrough1");
+		});
 	};
 
 
@@ -152,7 +157,7 @@ var appControllerModule = (function(dataModule, UIModule){
 				UIModule.deleteToDoListItem(itemID);
 			
 		}
-		 if (howManyItems == 0) {
+		 if (howManyItems == 0 && classID === "actual-delete-button") {
 			console.log("Baby yoda");
 
 			//#1: Delete last item from data structure
@@ -179,6 +184,8 @@ var appControllerModule = (function(dataModule, UIModule){
 		});
 
 		document.querySelector('.to-do-list-container').addEventListener('click', deleteItem);
+
+
 	};
 
 	return {

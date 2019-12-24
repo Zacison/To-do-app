@@ -1,13 +1,15 @@
 body {
-	background-color: #ff4e00;
-	background-image: linear-gradient(80deg, #ff4e00 0%, #ec9f05 74%);
+	background-color: #ebebeb;
+	/*background-image: linear-gradient(to left, #2980b9, #6dd5fa, #ffffff); */
+
 	position: relative;
+	font-family: Open Sans, Arial, serif;
 }
 
 .headline {
 	text-align: center;
-	color: white;
-	margin-top: 15vh;
+	color: #5c5c5c;
+	margin-top: 10vh;
 	font-size: 60px;
 }
 
@@ -18,12 +20,13 @@ body {
 
 .input-text {
 	width: 30vh;
-	height: 20px;
+	height: 25px;
 	border-radius: 5px;
-	border: 1px solid black;
+	border: 2px solid #2eb836;
 	padding: 2px 2px;
 	outline: none;
 	color: grey;
+	font-family: Open Sans, Arial, serif;
 }
 
 .input-text: focus {
@@ -31,20 +34,25 @@ body {
 }
 
 .input-button {
-  border: 1px solid black;
+  
   outline: none;
-  color: black;
-  padding: 6px 20px;
+  padding: 7px 20px 8px 20px;
   text-decoration: none;
-  margin: 4px 2px;
+  margin: 4px 2px 5px 2px;
   cursor: pointer;
   border-radius: 5px;
+  background-color: #2eb836;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
 }
 
 .to-do-list {
 	
 	/*text-align: center;*/
-	background-color: white;
+	background-color: #fcfcfc;
 	width: 75vw;
 	margin: 20px auto 0 auto;
 	border: 3px solid grey;
@@ -55,26 +63,43 @@ body {
 .list-items {
 	display: inline;
 	margin: 10px 10px 10px 10px;
-	padding: 0px;
-	
-
-	
+	padding: 0px;	
 }
 
 .item {
 	display: block;
 	margin: 10px;
 	position: relative;
-	border-bottom: 1px solid grey;
+	border-bottom: 1px dashed grey;
 	background-color: ;
 }
+
+.item.three {
+	border-width: medium;
+} 
 
 .checkmark-button {
 	display: inline-block;
 	position: relative;
 	bottom: 8px;
+	
+	cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: ;
 
 }
+
+.strikethrough1 {
+	text-decoration: line-through;
+}
+
+
+
+
 
 .item-description {
 	display: inline-block;
@@ -84,10 +109,14 @@ body {
 	
 }
 
+.item-description h2 {
+color: rgba(0,0,0,.4);
+}
+
 .delete-button {
 	display: inline-block;
 	position: absolute;
-	right: 50px;
+	right: 2em;
 	top: 10px;
 	
 }
@@ -95,9 +124,19 @@ body {
 .actual-delete-button {
 	 background-color: #f44336;
 	 color: black;
-	 font-size; 16px; /* Green */
+	 font-size: 16px;
 	 padding: 10px 15px;
-     border-radius: 5px;
+    
+
+     outline: none;
+  
+  text-decoration: none;
+  
+  cursor: pointer;
+  border-radius: 5px;
+
+  border: none;
+  color: white;
   
 }
 

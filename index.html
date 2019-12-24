@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Zach's To Do List</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -22,13 +23,14 @@
 				<section class="list-items">		
 					<div class="item" id="item-0">
 						<span class="checkmark-button">
-							<input type="checkbox">
+							<input type="checkbox" id ="cb">
+							<span class="checkmarkCSS"></span>
 						</span>
 						<span class="item-description">
-							<h2>Item #1</h2>
+							<h2 class="strikethrough">Item #1</h2>
 						</span>
 						<span class="delete-button">
-							<input type="button" value= "delete" class="actual-delete-button">
+							<input type="button" value= "Delete" class="actual-delete-button">
 						</span>
 					</div>
 				</section>	
