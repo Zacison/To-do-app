@@ -89,11 +89,11 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: ;
+  
 
 }
 
-.strikethrough1 {
+.strikethrough {
 	text-decoration: line-through;
 }
 

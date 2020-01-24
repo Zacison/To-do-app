@@ -23,8 +23,9 @@ var dataModule = (function() {
 
 			newItem = new Item(ID, description);
 			data.allItems.push(newItem);
-
+			this.persistData();
 			return newItem;
+			
 		},
 
 
@@ -39,6 +40,8 @@ var dataModule = (function() {
 			if(index !== -1) {
 				data.allItems.splice(index, 1);
 			}
+
+			this.persistData();
 			
 		},
 
@@ -46,7 +49,31 @@ var dataModule = (function() {
 			return {
 				allItems: data.allItems,
 			}
+		},
+
+		
+		//Create local storage functionality
+		persistData: function() {
+			localStorage.setItem('Items', JSON.stringify(data.allItems))
+		},
+
+		//restroring the stored data back into the data model
+		readStorage: function() {
+			var storage = JSON.parse(localStorage.getItem('Items'));
+			storage.forEach(el => {
+				var description = el.description;
+				var id = el.id;
+				var newItem = new Item(id, description);
+				data.allItems.push(newItem)
+			})
+			console.log(storage);
+
+				
+			return {
+				allItems: data.allItems,
+			}
 		}
+		
 	}
 
 })();
@@ -69,7 +96,7 @@ var UIModule = (function(){
 
 				if (item.id === 0) {
 					
-					html = '<section class="to-do-list"><section class="list-items"><div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox" id ="cb"><span class="checkmarkCSS"></span></span><span class="item-description"><h2 class="strikethrough">%description%</h2></span><span class="delete-button"><input type="button" value= "Delete" class="actual-delete-button"></span></div></section></section>';
+					html = '<section class="to-do-list"><section class="list-items"><div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox" id ="cb"><span class="checkmarkCSS"></span></span><span class="item-description"><h2 class="des">%description%</h2></span><span class="delete-button"><input type="button" value= "Delete" class="actual-delete-button"></span></div></section></section>';
 					newHtml = html.replace('%description%', item.description);
 
 					document.querySelector('.to-do-list-container').insertAdjacentHTML('beforeend', newHtml);
@@ -77,7 +104,7 @@ var UIModule = (function(){
 			
 				else {
 
-					html = '<div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox" id ="cb"><span class="checkmarkCSS"></span></span><span class="item-description"><h2 class="strikethrough">%description%</h2></span><span class="delete-button"><input type="button" value= "Delete" class="actual-delete-button"></span></div>';
+					html = '<div class="item" id="item-0"><span class="checkmark-button"><input type="checkbox" id ="cb"><span class="checkmarkCSS"></span></span><span class="item-description"><h2 class="des">%description%</h2></span><span class="delete-button"><input type="button" value= "Delete" class="actual-delete-button"></span></div>';
 					newHtml = html.replace('%description%', item.description);
 					newHtml = newHtml.replace('item-0', 'item-' + item.id);
 
@@ -124,10 +151,6 @@ var appControllerModule = (function(dataModule, UIModule){
 		//#4: Clear the fields
 		UIModule.clearFields();
 
-
-		document.getElementById('cb').addEventListener('click', function(){
-			document.getElementById('cb').setAttribute("class", "strikethrough1");
-		});
 	};
 
 
@@ -183,9 +206,55 @@ var appControllerModule = (function(dataModule, UIModule){
 			}
 		});
 
+		//adds delete button funcitonality
 		document.querySelector('.to-do-list-container').addEventListener('click', deleteItem);
 
 
+		//Toggles the strikethrough class for the item desctiption
+		document.querySelector('.to-do-list-container').addEventListener('click', function(event) {
+			
+			if (event.target.className === "des") {
+				event.target.classList.add("strikethrough");
+			}
+			else if (event.target.classList.length === 2) {
+				event.target.classList.remove("strikethrough");
+			}
+		});
+
+
+		//Restore items from local storage
+		 window.addEventListener('load', function() {
+
+			//Restore Items
+			dataModule.readStorage();
+			var items = dataModule.allDataItems();
+			console.log(items);
+			
+			//Iterate each item from localStorage through the UI to display
+			
+			if(items.allItems.length === 1) {
+				
+				//console.log(items.allItems);
+				
+				items.allItems.forEach(el => {
+					el.id = 0;
+					console.log(el.description);
+					console.log(el.id);
+					UIModule.displayItem(el);
+				});	
+			} 
+			else if (items.allItems.length > 1) {
+				items.allItems.forEach((el, index) => {
+					console.log(el.index);
+					el.id = index;
+					UIModule.displayItem(el);
+				});	
+			};
+		
+		/*
+			
+			*/
+		})
 	};
 
 	return {
